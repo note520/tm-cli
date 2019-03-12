@@ -44,6 +44,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       buildAppConfig.dev.ENV,
       {
         'BUILD_TAG':`"${buildAppConfig.appName}_${buildAppConfig.appVersion}_${versionForTime()}"`,// 构建时间标记
+        'MOCK_ENV':`"${process.env.MOCK_ENV}"`
       }),
     }),
     new webpack.HotModuleReplacementPlugin(),

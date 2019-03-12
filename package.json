@@ -14,7 +14,6 @@
     "handlebars": "^4.0.12",
     "inquirer": "^6.2.2",
     "ora": "^3.0.0",
-
     "adm-zip": "^0.4.13",
     "autoprefixer": "^9.4.8",
     "babel-core": "^6.26.3",
