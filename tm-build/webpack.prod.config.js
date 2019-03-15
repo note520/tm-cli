@@ -10,6 +10,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');// 复制文件插件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');// 到处css 到一个文件
 // const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin'); // 为 script 设置不同的部署选项进行编译 异步(async) 和 延迟(defer) dns-prefetch
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');// 混淆压缩js
+const TerserPlugin = require('terser-webpack-plugin');// 混淆压缩js, 能压缩 es6
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');// 压缩提取的CSS。消除来自不同组件的重复CSS。
 const CompressionWebpackPlugin = require('compression-webpack-plugin');// 启用 gzip 压缩
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin // 构建优化分析
@@ -87,8 +88,8 @@ const webpackConfig =merge(baseWebpackConfig,{
     },
     // 压缩
     minimizer: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
+      new TerserPlugin({
+        terserOptions: {
           mangle: true,
           output: { comments: false },
           compress: { warnings: false }
