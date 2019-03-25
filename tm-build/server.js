@@ -4,6 +4,7 @@ const open = require('opn')
 const WebpackDevServer = require('webpack-dev-server');
 const addDevServerEntrypoints = require('webpack-dev-server/lib/utils/addEntries');
 const createDomain = require('webpack-dev-server/lib/utils/createDomain');
+const portfinder = require('portfinder');
 // webpack-dev-server --host 0.0.0.0 --inline --progress --config build/webpack.dev.conf.js
 class Serve {
     constructor() {
@@ -67,12 +68,32 @@ class Serve {
     createPort() {
         let server = this.server
         let options = this.options
-        server.listen(options.port, options.host, (err) => {
-            if (err) throw err;
-            if (options.bonjour) this.broadcastZeroconf(options);
-            const uri = createDomain(options, server.listeningApp) + this.suffix;
-            console.log('create http server:',uri);
-            this.reportReadiness(uri, options);
+        // 当前端口被占用检测
+        this.checkPort(options.port).then(port=>{
+
+            server.listen(port, options.host, (err) => {
+                if (err) throw err;
+                if (options.bonjour) this.broadcastZeroconf(options);
+                const uri = createDomain(options, server.listeningApp) + this.suffix;
+                console.log('create http server:',uri);
+                this.reportReadiness(uri, options);
+            })
+
+        }).catch(e=>{
+            console.warn('checkPort error:',e)
+        });
+    }
+
+    checkPort(port){
+        return new Promise((resolve, reject) => {
+            portfinder.basePort = port
+            portfinder.getPort((err, port) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(port)
+                }
+            })
         })
     }
 
