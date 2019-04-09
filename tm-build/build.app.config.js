@@ -59,6 +59,9 @@ let appConfig = {
     distDir: resolveApp('./dist'), // 打包后目录
     staticDir: resolveApp('./static'), // 本地静态资源目录
     faviconUrl: resolveApp('./favicon.ico'),
+    appEntry:{
+        app: './src/main.js',
+    },
     // 开发环境
     dev:{
         assetsPublicPath: '/',
@@ -114,6 +117,9 @@ function readUserConfig(configPath) {
        }
        if(userWpConfig && userWpConfig['build']){
            buildAppConfig.build = {...appConfig.build,...userWpConfig['build']}
+       }
+       if(userWpConfig && userWpConfig['appEntry'] ){
+           buildAppConfig.appEntry = {...appConfig.appEntry,...userWpConfig['appEntry']}
        }
    }catch (e) {
        console.warn('readUserConfig error:',e)

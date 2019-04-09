@@ -8,6 +8,7 @@ const download = require('download-git-repo');
 const ora = require('ora');
 const chalk = require('chalk');
 const util = require('util');
+const exec = require('child_process').exec;
 const pck = require('../package.json');
 const Deferred = require('./Deferred');
 const TmBuild = require('../tm-build/build');
@@ -215,12 +216,20 @@ class TmShell{
               packageJson.author = opts.author||'';
 
               const writeRes = await writeFileSync(projectPkg, JSON.stringify(packageJson, null, 2), 'utf8');
-              console.log(chalk.green('project init successfully!'));
-              console.log(` 
-                ${chalk.yellow(`cd ${packageJson.name}`)}
-                ${chalk.yellow('npm install')}
-                ${chalk.yellow('npm run dev')}
-            `);
+
+              const cmd = `cd ${packageJson.name} && npm i`;
+              exec(cmd, function(error, stdout, stderr) {
+                  if (error) {
+                      console.error(`cmd 命令执行出错: ${error}`);
+                      return;
+                  }
+                  console.log(stdout);
+                  console.log(stderr);
+                  console.log(chalk.green('project init successfully!'));
+                  console.log(` 
+                    ${chalk.yellow('npm run dev')}
+                  `);
+              });
               deferred.resolve(opts);
           }
       }catch (e) {

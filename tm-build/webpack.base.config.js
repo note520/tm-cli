@@ -3,6 +3,7 @@ const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader')
 // const ManifestPlugin = require('webpack-manifest-plugin');// manifest.json SourceMap映射表
 const { resolveDir, versionForTime, assetsPath,resolveApp,ownDir } = require('../common/utils');
+const buildAppConfig = require('./build.app.config');
 
 module.exports = {
     mode: 'production',
@@ -17,9 +18,7 @@ module.exports = {
         contentBase: path.join(__dirname, 'static'), // 为开发本地静态资源提供服务目录
     },
     // 入口文件
-    entry: {
-        app: './src/main.js',
-    },
+    entry: buildAppConfig.appEntry,
     // 输出文件
     output: {
         filename: '[name].bundle.js?='+versionForTime(),
@@ -115,7 +114,16 @@ module.exports = {
                 limit: 10000,
                 name: assetsPath('[name].[hash:7].[ext]')
               }
-            }
+            },
+            // ts
+            {
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+                exclude: /node_modules|\/build|\/mock|\/dist/,
+                options: {
+                    appendTsSuffixTo: [/\.vue$/],
+                }
+            },
         ]
     },
     // 第三方插件
@@ -125,9 +133,10 @@ module.exports = {
     ],
     // 自定义解析
     resolve:{
-        extensions: ['.js', '.vue', '.json'],
+        extensions: ['.js','.ts', '.vue', '.json'],
         alias:{
-          '@':resolveApp('src')
+          '@':resolveApp('src'),
+          'vue$': 'vue/dist/vue.esm.js'
         }
     },
     // 外部扩展

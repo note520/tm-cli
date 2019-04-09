@@ -49,6 +49,9 @@
     "webpack-dev-middleware": "^3.5.1",
     "webpack-dev-server": "^3.1.14",
     "webpack-manifest-plugin": "^2.0.4",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.1",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.4.2",
+    "vue-property-decorator": "^8.1.0"
   }
 }
