@@ -18,7 +18,7 @@ module.exports = {
         contentBase: path.join(__dirname, 'static'), // 为开发本地静态资源提供服务目录
     },
     // 入口文件
-    entry: buildAppConfig.appEntry,
+    entry: buildAppConfig.extendConfig.appEntry,
     // 输出文件
     output: {
         filename: '[name].bundle.js?='+versionForTime(),

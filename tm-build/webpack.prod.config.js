@@ -32,7 +32,7 @@ const webpackConfig =merge(baseWebpackConfig,{
       sourceMap: buildAppConfig.build.productionSourceMap,
       extract: true,
       usePostCSS: true,
-      isPx2Rem: buildAppConfig.isPx2Rem,
+      isPx2Rem: buildAppConfig.extendConfig.isPx2Rem,
     })
   },
   // 第三方插件

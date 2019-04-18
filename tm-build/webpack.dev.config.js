@@ -20,7 +20,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     rules: styleLoaders({
       sourceMap: buildAppConfig.dev.cssSourceMap,
       usePostCSS: true,
-      isPx2Rem: buildAppConfig.isPx2Rem,
+      isPx2Rem: buildAppConfig.extendConfig.isPx2Rem,
     })
   },
   devtool: buildAppConfig.dev.devtool,

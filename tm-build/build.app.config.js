@@ -59,11 +59,14 @@ let appConfig = {
     distDir: resolveApp('./dist'), // 打包后目录
     staticDir: resolveApp('./static'), // 本地静态资源目录
     faviconUrl: resolveApp('./favicon.ico'),
-    // 入口文件配置
-    appEntry:{
-        app: './src/main.js',
+    // 扩展配置
+    extendConfig:{
+        // 入口文件配置
+        appEntry:{
+            app: './src/main.js',
+        },
+        isPx2Rem:false,// 是否开启px转换rem
     },
-    isPx2Rem:false,// 是否开启px转换rem
     // 开发环境
     dev:{
         assetsPublicPath: '/',
@@ -120,9 +123,10 @@ function readUserConfig(configPath) {
        if(userWpConfig && userWpConfig['build']){
            buildAppConfig.build = {...appConfig.build,...userWpConfig['build']}
        }
-       if(userWpConfig && userWpConfig['appEntry'] ){
-           buildAppConfig.appEntry = {...appConfig.appEntry,...userWpConfig['appEntry']}
+       if(userWpConfig && userWpConfig['extendConfig'] ){
+          buildAppConfig.extendConfig = {...appConfig.extendConfig,...userWpConfig['extendConfig']}
        }
+       console.warn('======readUserConfig========',buildAppConfig)
    }catch (e) {
        console.warn('readUserConfig error:',e)
    }
