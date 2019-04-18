@@ -65,17 +65,21 @@ function cssLoaders(options) {
     options: {
       sourceMap: options.sourceMap
     }
+  };
+  let pluginsArr = [
+      require('autoprefixer')(), //CSS浏览器兼容
+      require('postcss-import')(),
+      require('postcss-url')()
+  ];
+  if(options.isPx2Rem){
+      pluginsArr.push(require('postcss-px2rem')({remUnit: 75}));
   }
 
   const postcssLoader = {
     loader: 'postcss-loader',
     options: {
       sourceMap: options.sourceMap,
-      plugins: (loader) => [
-          require('autoprefixer')(), //CSS浏览器兼容
-          require('postcss-import')(),
-          require('postcss-url')(),
-      ]
+      plugins: (loader) => pluginsArr
     }
   }
 
