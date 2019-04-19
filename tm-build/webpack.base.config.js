@@ -41,6 +41,7 @@ module.exports = {
                 loader: 'vue-loader'
             },
             // 以及 `.vue` 文件中的 `<script>` 块
+            // todo 可优化让用户配置文件babel
             {
                 test: /\.js$/,
                 exclude: /node_modules|\/build|\/mock|\/dist/,

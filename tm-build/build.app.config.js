@@ -126,7 +126,6 @@ function readUserConfig(configPath) {
        if(userWpConfig && userWpConfig['extendConfig'] ){
           buildAppConfig.extendConfig = {...appConfig.extendConfig,...userWpConfig['extendConfig']}
        }
-       console.warn('======readUserConfig========',buildAppConfig)
    }catch (e) {
        console.warn('readUserConfig error:',e)
    }
