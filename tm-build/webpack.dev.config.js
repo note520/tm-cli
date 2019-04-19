@@ -1,5 +1,6 @@
 'use strict'
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 复制html模板注入
@@ -18,7 +19,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: styleLoaders({
       sourceMap: buildAppConfig.dev.cssSourceMap,
-      usePostCSS: true
+      usePostCSS: true,
+      isPx2Rem: buildAppConfig.extendConfig.isPx2Rem,
     })
   },
   devtool: buildAppConfig.dev.devtool,
@@ -53,7 +55,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       filename: 'index.html',
       template: 'index.html',
       inject: true,
-      favicon: resolveApp(buildAppConfig.faviconUrl),
+      favicon: fs.existsSync(buildAppConfig.faviconUrl)?resolveApp(buildAppConfig.faviconUrl):'',
       title: buildAppConfig.appName
     }),
     // 复制静态资源
