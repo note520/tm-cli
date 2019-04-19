@@ -65,7 +65,7 @@ let appConfig = {
         appEntry:{
             app: './src/main.js',
         },
-        isPx2Rem:false,// 是否开启px转换rem
+        px2remConfig:null,// 是否开启px转换rem
     },
     // 开发环境
     dev:{

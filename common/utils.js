@@ -71,8 +71,8 @@ function cssLoaders(options) {
       require('postcss-import')(),
       require('postcss-url')()
   ];
-  if(options.isPx2Rem){
-      pluginsArr.push(require('postcss-px2rem')({remUnit: 75}));
+  if(options.px2remConfig){
+      pluginsArr.push(require('postcss-pxtorem')(options.px2remConfig));
   }
 
   const postcssLoader = {

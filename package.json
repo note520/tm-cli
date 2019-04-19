@@ -1,6 +1,6 @@
 {
   "name": "tm-cli",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "",
   "author": "ricopter@qq.com",
   "bin": {
@@ -45,16 +45,19 @@
     "portfinder": "^1.0.20",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
+    "postcss-pxtorem": "^4.0.1",
     "postcss-url": "^8.0.0",
-    "postcss-px2rem": "^0.3.0",
     "rimraf": "^2.6.3",
     "script-ext-html-webpack-plugin": "^2.1.3",
     "serve-static": "^1.13.2",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.2.3",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.4.2",
     "uglifyjs-webpack-plugin": "^2.1.1",
     "url-loader": "^1.1.2",
     "vue-loader": "^15.6.4",
+    "vue-property-decorator": "^8.1.0",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "2.5.17",
     "webpack": "^4.28.4",
@@ -63,10 +66,7 @@
     "webpack-dev-middleware": "^3.5.1",
     "webpack-dev-server": "^3.1.14",
     "webpack-manifest-plugin": "^2.0.4",
-    "webpack-merge": "^4.2.1",
-    "ts-loader": "^5.3.3",
-    "typescript": "^3.4.2",
-    "vue-property-decorator": "^8.1.0"
+    "webpack-merge": "^4.2.1"
   },
   "devDependencies": {},
   "repository": {
