@@ -15,7 +15,10 @@ module.exports = {
         }
     },
     "webpackConfig":{
-        "dev":{},
+        "dev":{
+            // 开发环境本地服务器配置
+            "devServerConfig":{}
+        },
         "build":{}
     }
 }

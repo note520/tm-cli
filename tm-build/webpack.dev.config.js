@@ -13,33 +13,35 @@ const { resolveDir, versionForTime, assetsPath,styleLoaders, resolveApp } = requ
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
+// dev服务器配置,必须和webpack dev参数要求一致否则会报错
+const devServerConfig = Object.assign({}, {
+  publicPath: buildAppConfig.dev.assetsPublicPath,
+  proxy:{},
+  clientLogLevel: 'warning',
+  historyApiFallback: true,
+  hot: true,
+  compress: true,
+  host: HOST || '127.0.0.1',// ip 访问 0.0.0.0
+  port: PORT || 9090,
+  open: true,
+  overlay:{ warnings: false, errors: true },
+  quiet: true, // necessary for FriendlyErrorsPlugin
+  watchOptions: {
+    poll: false
+  }
+},buildAppConfig.dev.devServerConfig);
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   mode: 'development',
   module: {
     rules: styleLoaders({
-      sourceMap: buildAppConfig.dev.cssSourceMap,
+      sourceMap: buildAppConfig.dev.devServerConfig.cssSourceMap,
       usePostCSS: true,
       px2remConfig: buildAppConfig.extendConfig.px2remConfig,
     })
   },
   devtool: buildAppConfig.dev.devtool,
-  devServer: {
-    publicPath: buildAppConfig.dev.assetsPublicPath,
-    proxy: buildAppConfig.dev.proxyTable,
-    clientLogLevel: 'warning',
-    historyApiFallback: true,
-    hot: true,
-    compress: true,
-    host: HOST || buildAppConfig.dev.host || '127.0.0.1',// ip 访问 0.0.0.0
-    port: PORT || buildAppConfig.dev.port || 9090,
-    open: true,
-    overlay:{ warnings: false, errors: true },
-    quiet: true, // necessary for FriendlyErrorsPlugin
-    watchOptions: {
-      poll: false
-    }
-  },
+  devServer: devServerConfig,
   plugins: [
     new webpack.DefinePlugin({
       'process.env': Object.assign({},

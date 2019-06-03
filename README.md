@@ -10,9 +10,6 @@
 // 全局安装
 npm i -g tm-cli
 
-// 本地安装
-npm i -D tm-cli
-
 // 查看命令
 tm
 ```

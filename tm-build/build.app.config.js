@@ -71,20 +71,24 @@ let appConfig = {
     dev:{
         assetsPublicPath: '/',
         assetsSubDirectory: 'static',
-        devtool:'cheap-source-map',
         cssSourceMap:false,
-        host:'127.0.0.1',
-        port:'9090',
-        // 代理配置
-        proxyTable: {
-            '/api': {
-                target: 'http://areaboss.dev2.xsyxsc.cn', // 'http://areaboss.dev2.xsyxsc.cn', http://uatareaboss.frxs.cn
-                pathRewrite: {
-                    '^/api': ''
-                },
-                changeOrigin: true // target是域名的话，需要这个参数，
-                // secure: false,          // 使用的是https，会有安全校验，所以设置secure为false
-            }
+        devtool:'cheap-source-map',
+        // devServerConfig 需要和webpack dev-server保持一致
+        devServerConfig:{
+            publicPath:'/',
+            host:'127.0.0.1',
+            port:'9090',
+            // 代理配置
+            proxy: {
+                // '/api': {
+                //     target: 'http://xxx.xxx.cn',
+                //     pathRewrite: {
+                //         '^/api': ''
+                //     },
+                //     changeOrigin: true // target是域名的话，需要这个参数，
+                //     // secure: false,          // 使用的是https，会有安全校验，所以设置secure为false
+                // }
+            },
         },
         // 自定义process.env全局变量
         ENV:defaultENV
@@ -118,7 +122,17 @@ function readUserConfig(configPath) {
        const fileData = require(configPath);
        const userWpConfig =  fileData.webpackConfig;
        if(userWpConfig && userWpConfig['dev']){
-           buildAppConfig.dev = {...appConfig.dev,...userWpConfig['dev']}
+           let userDevConfig = appConfig.dev;
+           // 兼容0.1.6以下版本
+           for(let x in userWpConfig['dev']){
+               const val = userWpConfig['dev'][x];
+               if(x ==='proxyTable'){
+                   userDevConfig['devServerConfig']['proxy']= val;
+               }else {
+                   userDevConfig[x]= val;
+               }
+           }
+           buildAppConfig.dev = userDevConfig;
        }
        if(userWpConfig && userWpConfig['build']){
            buildAppConfig.build = {...appConfig.build,...userWpConfig['build']}

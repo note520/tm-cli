@@ -56,8 +56,12 @@ module.exports = {
                                     'modules': false,
                                     'targets': {
                                         'browsers': [
-                                            '> 1%',
+                                            // '> 1%',
+                                            // 'last 2 versions',
                                             'last 2 versions',
+                                            'Android >=4',
+                                            'Chrome >=35',
+                                            'iOS>=8',
                                             'not ie <= 8'
                                         ]
                                     }
