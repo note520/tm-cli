@@ -22,15 +22,15 @@ tm
     - tm build  部署构建打包，生成dist目录。可选参数 -e 同上
     - 项目初始化浏览器控制台会打印 process.env 中的配置信息比如版本、构建时间
 
-###tm.config.js 配置 
+### tm.config.js 配置 
 
-####配置参数：gitTplMap 
+#### 配置参数：gitTplMap 
     - 配置下载远程模板路径信息 ，如果需要下载私有模板则需要git ssh配置比如mp-tpl-less-ssh。
     - url  远程下载地址 direct:xxxx
     - des 项目描述
     - opts 扩展参数，详情请参考 download-git-repo
  
-####参数：webpackConfig
+#### 参数：webpackConfig
     - 覆盖内置webpack配置信息
     - dev 针对开发环境配置
     - build 部署环境配置
