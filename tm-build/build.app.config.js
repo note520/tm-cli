@@ -5,7 +5,7 @@ const util = require('util');
 const { resolveApp } = require('../common/utils');
 const { TM_CONFIG } = require('../common/constant');
 let defaultENV;
-// 应用环境判断
+// 应用环境判断 //todo 自定义APP_ENV
 switch (process.env.APP_ENV) {
   // 正式部署
   case 'production':
@@ -56,6 +56,7 @@ const pkg = isPkg?require(pkgPath):'../package.json';
 let appConfig = {
     appName:pkg.name,
     appVersion:pkg.version,
+    currentENV:defaultENV,
     distDir: resolveApp('./dist'), // 打包后目录
     staticDir: resolveApp('./static'), // 本地静态资源目录
     faviconUrl: resolveApp('./favicon.ico'),
@@ -91,7 +92,22 @@ let appConfig = {
             },
         },
         // 自定义process.env全局变量
-        ENV:defaultENV
+        ENV:defaultENV,
+        // 模块加载器配置
+        moduleRules:{
+            // 图片加载器配置
+            imgLoaderOptions:{
+                limit: 10000,
+            },
+            // 字体加载器配置
+            fontLoaderOptions:{
+                limit: 10000,
+            },
+            // 加载器配置
+            mediaLoaderOptions:{
+                limit: 10000,
+            },
+        },
     },
     // 打包
     build:{
@@ -107,7 +123,22 @@ let appConfig = {
         bundleAnalyzerReport: process['env']['npm_config_report'] || false,
         generateAnalyzerReport: process['env']['npm_config_generate_report'] || false,// `npm run build:prod --generate_report`
         // 联调 测试 process.env全局变量
-        ENV:defaultENV
+        ENV:defaultENV,
+        // 模块加载器配置
+        moduleRules:{
+            // 图片加载器配置
+            imgLoaderOptions:{
+                limit: 10000,
+            },
+            // 字体加载器配置
+            fontLoaderOptions:{
+                limit: 10000,
+            },
+            // 加载器配置
+            mediaLoaderOptions:{
+                limit: 10000,
+            },
+        },
     }
 };
 

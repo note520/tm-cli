@@ -33,6 +33,11 @@ const devServerConfig = Object.assign({}, {
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   mode: 'development',
+  output: {
+    path: resolveApp(buildAppConfig.distDir),// 文件输出目录相对于build目录
+    filename: '[name].bundle.js?='+versionForTime(),
+    publicPath: devServerConfig.publicPath // CDN 静态公共路径
+  },
   module: {
     rules: styleLoaders({
       sourceMap: buildAppConfig.dev.devServerConfig.cssSourceMap,

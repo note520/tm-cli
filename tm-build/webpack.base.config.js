@@ -4,6 +4,8 @@ const { VueLoaderPlugin } = require('vue-loader')
 // const ManifestPlugin = require('webpack-manifest-plugin');// manifest.json SourceMap映射表
 const { resolveDir, versionForTime, assetsPath,resolveApp,ownDir } = require('../common/utils');
 const buildAppConfig = require('./build.app.config');
+const CURRENT_NODE_ENV = buildAppConfig.currentENV.NODE_ENV; // 当前node环境
+const PRODUCTION_ENV ='"production"';
 
 module.exports = {
     mode: 'production',
@@ -97,28 +99,28 @@ module.exports = {
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
-                options: {
-                  limit: 10000,
-                  name: assetsPath('[name].[hash:7].[ext]')
-                }
+                options:Object.assign({},{
+                    limit: 10000,
+                    name: assetsPath('[name].[hash:7].[ext]')
+                },CURRENT_NODE_ENV ===PRODUCTION_ENV ? buildAppConfig.build.moduleRules.imgLoaderOptions : buildAppConfig.dev.moduleRules.imgLoaderOptions)
             },
             // 字体加载
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 loader: 'url-loader',
-                options: {
-                  limit: 10000,
-                  name: assetsPath('[name].[hash:7].[ext]')
-                }
+                options:Object.assign({},{
+                    limit: 10000,
+                    name: assetsPath('[name].[hash:7].[ext]')
+                },CURRENT_NODE_ENV ===PRODUCTION_ENV ? buildAppConfig.build.moduleRules.fontLoaderOptions : buildAppConfig.dev.moduleRules.fontLoaderOptions)
             },
           // 多媒体
             {
               test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
               loader: 'url-loader',
-              options: {
-                limit: 10000,
-                name: assetsPath('[name].[hash:7].[ext]')
-              }
+                options:Object.assign({},{
+                    limit: 10000,
+                    name: assetsPath('[name].[hash:7].[ext]')
+                },CURRENT_NODE_ENV ===PRODUCTION_ENV ? buildAppConfig.build.moduleRules.mediaLoaderOptions : buildAppConfig.dev.moduleRules.mediaLoaderOptions)
             },
             // ts
             {
