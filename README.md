@@ -43,17 +43,18 @@ module.exports = {
   "author": "ricopter@qq.com",
   "webpackConfig":{
     "dev":{
-      //"host":"0.0.0.0", //ip 访问
-      // 本地代理 0.1.6以下版本配置代理,0.1.6以上用devServerConfig来对应webpack中的devServer项
-      "proxyTable": {
-        "/api": {
-          "target": "http://xx.xx.xx.xx:xxx",// api访问地址
-          "pathRewrite": {
-            "^/api": ""
-          },
-          "changeOrigin": true
-        }
-      }
+      "devServerConfig":{
+        "host":"0.0.0.0", //ip 访问
+          "proxy": {
+            "/api": {
+              "target": "http://xx.xx.xx.xx:xxx",// api访问地址
+              "pathRewrite": {
+                "^/api": ""
+              },
+              "changeOrigin": true
+            }
+          }
+      },  
     },
     // 打包自定义配置
     "build": {
@@ -77,18 +78,19 @@ module.exports = {
       }
     },
     "dev":{
-      // ip 访问,
-      "host":"0.0.0.0",
-      // 本地代理
-      "proxyTable": {
-        "/api": {
-          "target": "http://xx.xx.xx.xx:xxx",//api访问地址
-          "pathRewrite": {
-            "^/api": ""
-          },
-          "changeOrigin": true
+      "devServerConfig":{
+          "host":"0.0.0.0", //ip 访问
+          // 本地代理
+            "proxy": {
+              "/api": {
+                "target": "http://xx.xx.xx.xx:xxx",//api访问地址
+                "pathRewrite": {
+                  "^/api": ""
+                },
+                "changeOrigin": true
+              }
         }
-      }
+       },  
     },
     // 打包自定义配置
     "build": {

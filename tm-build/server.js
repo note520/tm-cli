@@ -116,20 +116,20 @@ class Serve {
 
             if (options.bonjour) { console.log('Broadcasting "http" with subtype of "webpack" via ZeroConf DNS (Bonjour)') }
         }
-
-        if (options.open) {
-            let openOptions = {}
-            let openMessage = 'Unable to open browser'
-
-            if (typeof options.open === 'string') {
-                openOptions = { app: options.open }
-                openMessage += `: ${options.open}`
-            }
-
-            open(uri + (options.openPage || ''), openOptions).catch(() => {
-                console.log(`${openMessage}. If you are running in a headless environment, please do not use the open flag.`)
-            })
-        }
+        // 启动重复自动打开页面
+        // if (options.open) {
+        //     let openOptions = {}
+        //     let openMessage = 'Unable to open browser'
+        //
+        //     if (typeof options.open === 'string') {
+        //         openOptions = { app: options.open }
+        //         openMessage += `: ${options.open}`
+        //     }
+        //
+        //     open(uri + (options.openPage || ''), openOptions).catch(() => {
+        //         console.log(`${openMessage}. If you are running in a headless environment, please do not use the open flag.`)
+        //     })
+        // }
     }
 
     broadcastZeroconf(options) {
