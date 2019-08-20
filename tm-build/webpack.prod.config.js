@@ -50,9 +50,9 @@ const webpackConfig =merge(baseWebpackConfig,{
       filename: assetsPath('[name].css?='+versionForTime()),
     }),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true,
+      filename: buildAppConfig.build.pluginsConfig?buildAppConfig.build.pluginsConfig.HtmlWebpackPlugin.filename:'index.html',
+      template: buildAppConfig.build.pluginsConfig?buildAppConfig.build.pluginsConfig.HtmlWebpackPlugin.template:'index.html',
+      inject: buildAppConfig.build.pluginsConfig?buildAppConfig.build.pluginsConfig.HtmlWebpackPlugin.inject:true,
       favicon: fs.existsSync(buildAppConfig.faviconUrl)?resolveApp(buildAppConfig.faviconUrl):'',
       title: buildAppConfig.appName,
       templateParameters: {

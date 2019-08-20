@@ -108,6 +108,13 @@ let appConfig = {
                 limit: 10000,
             },
         },
+        pluginsConfig:{
+            HtmlWebpackPlugin:{
+                inject:true,
+                filename:"index.html",
+                template:"index.html",
+            }
+        }
     },
     // 打包
     build:{
@@ -139,6 +146,14 @@ let appConfig = {
                 limit: 10000,
             },
         },
+
+        pluginsConfig:{
+            HtmlWebpackPlugin:{
+                inject:true,
+                filename:"index.html",
+                template:"index.html",
+            }
+        }
     }
 };
 

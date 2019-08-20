@@ -59,9 +59,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.HotModuleReplacementPlugin(),
     // 模板注入替换
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true,
+      filename: buildAppConfig.dev.pluginsConfig?buildAppConfig.dev.pluginsConfig.HtmlWebpackPlugin.filename:'index.html',
+      template: buildAppConfig.dev.pluginsConfig?buildAppConfig.dev.pluginsConfig.HtmlWebpackPlugin.template:'index.html',
+      inject: buildAppConfig.dev.pluginsConfig?buildAppConfig.dev.pluginsConfig.HtmlWebpackPlugin.inject:true,
       favicon: fs.existsSync(buildAppConfig.faviconUrl)?resolveApp(buildAppConfig.faviconUrl):'',
       title: buildAppConfig.appName
     }),
